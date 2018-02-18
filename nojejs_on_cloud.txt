@@ -1,0 +1,49 @@
+Amazon cloud: ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-20180109 (ami-2581aa40)
+
+To install nodejs:
+cd /usr/local
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+To create a new user group:
+sudo addgroup project
+sudo adduser --ingroup project user
+sudo adduser user sudo
+
+To install mysql:
+sudo apt-get update 
+sudo apt-get install mysql-server 
+sudo apt-get install mysql-client 
+sudo apt-get install libmysql-java
+
+To access mysql:
+mysql –uroot -p
+
+create database PersonalData;
+use PersonalData;
+
+To install nodejs sequelize:
+npm install --save sequelize
+npm install --save mysql2
+
+sudo npm install --save sequelize-cli
+
+Begin with sequelize:
+cd node_modules/.bin/
+sudo ./sequelize init
+
+Change the database connection properties in config.json:
+sudo nano config/config.json
+
+Create a model:
+sudo ./sequelize model:generate --name beneficiary_data --attributes firstName:string,lastName:string,dob:dateonly,uniqueID:string
+
+Run the migration:
+./sequelize db:migrate
+
+Create a seed:
+sudo ./sequelize seed:generate --name demo-user
+cd seeders
+
+Run the seed:
+sudo ./sequelize db:seed:all
